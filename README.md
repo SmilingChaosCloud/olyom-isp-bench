@@ -102,9 +102,5 @@ The Apache-2.0 components — the builder call fixtures derived from `oly_fw_ana
 `caduceus-ep7` — are compatible with GPLv3 and retain their own Apache-2.0 licence and attribution; keep their
 `NOTICE` where their terms require it.
 
-> **Before publishing:** `vendor/om-emu` is bundled here but its upstream licence could not be confirmed
-> automatically. Check OM-EMU's licence and include its notice as required before distributing, or reference it
-> as an external dependency instead of vendoring it.
-
 Not affiliated with OM Digital Solutions or Olympus. "Olympus", "PEN" and film-simulation names are trademarks
 of their respective owners.
