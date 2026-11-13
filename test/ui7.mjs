@@ -1,0 +1,21 @@
+import { createRequire } from 'node:module';
+const require = createRequire('/opt/npm-tools/node_modules/');
+const { chromium } = require('playwright');
+const b = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const pg = await b.newPage(); const errs=[];
+pg.on('pageerror', e => errs.push('PAGEERR '+e.message));
+await pg.goto('file://' + process.cwd() + '/dist/index.html');
+await pg.waitForTimeout(500);
+const row = await pg.$('.row[data-key="chroma.depth"]'); await row.scrollIntoViewIfNeeded();
+await (await row.$('input[type=range]')).hover(); await pg.waitForTimeout(150);
+console.log('field hover:', JSON.stringify(await pg.$eval('#tip', t=>t.hidden?null:{cls:t.className,txt:t.innerText})));
+await (await row.$('label.plabel')).hover(); await pg.waitForTimeout(150);
+console.log('label hover:', JSON.stringify(await pg.$eval('#tip', t=>t.hidden?null:{cls:t.className,txt:t.innerText})));
+// bullet + origin colours queried directly
+console.log('K dot (reg->blue):', await pg.$eval('.row[data-key="sharpen.K"] .dot', d=>getComputedStyle(d).backgroundColor));
+console.log('depth dot (model->pink):', await pg.$eval('.row[data-key="chroma.depth"] .dot', d=>getComputedStyle(d).backgroundColor));
+console.log('s dot (camera->blue):', await pg.$eval('.row[data-key="sharpen.s"] .dot', d=>getComputedStyle(d).backgroundColor));
+console.log('default edge path:', await pg.$eval('.row[data-key="sharpen.path"] select', s=>s.value));
+console.log('note maxWidth:', await pg.$eval('.note', n=>getComputedStyle(n).maxWidth));
+console.log('errs:', errs);
+await b.close();

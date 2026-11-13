@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>olyom-isp-bench</title>
+<style>/*CSS*/</style>
+</head>
+<body>
+<header id="top">
+  <div class="group">
+    <button id="loadimg" type="button">Load image</button>
+    <button id="resetimg" type="button">Reset Image</button>
+    <button id="saveout" type="button">Save output</button>
+  </div>
+  <div class="group">
+    <button id="loadfw" type="button">Load firmware</button>
+    <span id="fw" data-kind="none">No firmware loaded</span>
+  </div>
+  <div class="group">
+    <button id="loadset" type="button">Load settings</button>
+    <button id="saveset" type="button">Save settings</button>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <input id="fileimg" type="file" accept=".png,image/png" hidden>
+  <input id="filefw" type="file" accept=".bin,.BIN" hidden>
+  <input id="fileset" type="file" accept=".json" hidden>
+</header>
+<main>
+  <div id="left">
+  <div id="stage">
+    <figure><figcaption>Input <span class="zoomlabel"></span><span id="inname"></span></figcaption><div class="frame" tabindex="0" role="button" aria-label="Input image. Click to zoom both images."><canvas id="in" width="400" height="400"></canvas></div></figure>
+    <figure><figcaption>Output <span class="zoomlabel"></span></figcaption><div class="frame" tabindex="0" role="button" aria-label="Output image. Click to zoom both images."><canvas id="out" width="400" height="400"></canvas></div></figure>
+  </div>
+  <p id="msg" role="status"></p>
+  <div id="pathline">
+    <div id="strip" role="group" aria-label="Signal path. Click a stage to bypass it."></div>
+    <ul id="legend">
+      <li><i data-o="fw"></i>Firmware</li><li><i data-o="doc"></i>Documented</li><li><i data-o="model"></i>Assumed</li><li><i data-o="user"></i>Yours</li>
+    </ul>
+    <p id="legendnote">Top bar: where a stage's values come from. Bottom bar: how its pixels are computed.</p>
+    <div id="source" role="group" aria-label="Parameter source">
+      <button type="button" data-v="camera">Camera controls</button>
+      <button type="button" data-v="reg">ISP registers</button>
+    </div>
+  </div>
+  <p id="timing"></p>
+  <p id="shortcuts">Slider keys (slider or its value box focused): <b>Home</b> = default &middot; <b>End</b> = middle &middot; <b>&uarr;/&darr;</b> = max/min &middot; <b>&larr;/&rarr;</b> = step. Double-click a slider also resets it.</p>
+  <p id="fwfail" hidden>A firmware builder failed, so its stage is using documented values. See the capture table below.</p>
+  <section id="captures" class="panel">
+    <header><h2>Firmware captures</h2></header>
+    <p class="note">MN103 builders run from your firmware against a synthetic request, as in the research probes. Register values are captured, not applied by real hardware.</p>
+    <div id="log"></div>
+  </section>
+  </div>
+  <div id="right" role="region" aria-label="Processing parameters">
+  <div id="panels-a" class="cols"></div>
+  <div id="panels-hsl"></div>
+  <div id="panels-b" class="cols"></div>
+  </div>
+</main>
+<div id="tip" role="tooltip" hidden></div>
+<script>/*JS*/</script>
+</body>
+</html>
