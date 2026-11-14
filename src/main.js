@@ -415,10 +415,40 @@ function setupZoom() {
     });
   }
 }
+// Draggable split between the image half and the parameter half (wide layout only). Narrowing the left
+// pane lets the two image frames wrap and stack on their own, so users can pick the arrangement they like.
+function setupDivider() {
+  const main = document.querySelector('main'), d = $('#divider'), mq = matchMedia('(min-width:1180px)');
+  const bounds = () => { const r = main.getBoundingClientRect(); return { left: r.left, min: 360, max: Math.max(360, r.width - 380) }; };
+  const setW = (px, save) => {
+    const b = bounds(), x = Math.round(Math.min(b.max, Math.max(b.min, px)));
+    main.style.setProperty('--leftw', x + 'px');
+    if (save) try { localStorage.setItem('olyom-split', String(x)); } catch (e) { /* storage may be unavailable */ }
+  };
+  const reset = () => { main.style.removeProperty('--leftw'); try { localStorage.removeItem('olyom-split'); } catch (e) { /* ignore */ } };
+  try { const s = localStorage.getItem('olyom-split'); if (s && mq.matches) setW(+s, false); } catch (e) { /* ignore */ }
+  d.addEventListener('pointerdown', (ev) => {
+    if (!mq.matches) return;
+    ev.preventDefault(); d.setPointerCapture(ev.pointerId); d.classList.add('active'); document.body.classList.add('resizing');
+    const move = (e) => setW(e.clientX - bounds().left, false);
+    const up = (e) => { try { d.releasePointerCapture(ev.pointerId); } catch (_) {} d.classList.remove('active'); document.body.classList.remove('resizing'); d.removeEventListener('pointermove', move); d.removeEventListener('pointerup', up); setW(e.clientX - bounds().left, true); };
+    d.addEventListener('pointermove', move); d.addEventListener('pointerup', up);
+  });
+  d.addEventListener('dblclick', reset);
+  d.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Home') { ev.preventDefault(); reset(); return; }
+    if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+    ev.preventDefault();
+    const cur = parseFloat(getComputedStyle(main).gridTemplateColumns) || main.getBoundingClientRect().width / 2;
+    setW(cur + (ev.key === 'ArrowRight' ? 24 : -24), true);
+  });
+  addEventListener('resize', () => { const w = main.style.getPropertyValue('--leftw'); if (mq.matches && w) setW(parseFloat(w), false); });
+}
 function init() {
   buildPanels();
   setupZoom();
   setupTip();
+  setupDivider();
   addFold($('#captures'), 'Firmware captures');
   useScene();
   bindFile('#loadimg', '#fileimg', loadImage);
