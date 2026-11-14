@@ -31,10 +31,8 @@ does not pollute the output. With no image loaded the bench shows a built-in syn
 core against a synthetic request, so stages marked *Firmware* show the values a real PEN-F 3.1 `.BIN`
 produces. The firmware itself is proprietary and is **not** included — supply your own file.
 
-**Keyboard.** With a sub-parameter selected (a magenta highlight appears), the arrow keys and two extras act
-on it: **←/→** decrease / increase the value by one step, **↑/↓** set it to maximum / minimum, **End** sets
-the middle value, and **Home** restores the default. These work whether the slider or its value box has
-focus; double-clicking a slider also resets it.
+**Keyboard Shortcuts.** With a sub-parameter selected by clicking on heading or text field (a magenta highlight appears), the keys act
+on it: **←/→** decrease / increase the value by one step, **↑/↓** set it to maximum / minimum, **End** sets the middle value, and **Home** restores the default. These work whether the slider or its value box has focus; double-clicking a slider also resets it.
 
 **Reachability bullets.** Each sub-parameter has a coloured dot by its heading:
 - <img src="docs/dot-reachable.svg" width="11" height="11" alt="light blue"> **light blue** — firmware-reachable (a real camera menu setting or an ISP register the firmware writes).
