@@ -1,8 +1,7 @@
 # olyom-isp-bench
 
 A browser-based bench that emulates the image-signal-processing (ISP) steps of Olympus / OM Digital
-cameras (PEN-F and close relatives). It lets you watch how each stage shapes the picture and study how
-far the sharpening / edge enhancement can be pushed within the hardware's constraints.
+cameras (PEN-F and close relatives). It lets you watch how each stage shapes the picture.
 
 ![The bench running on the built-in test scene](docs/screenshot.png)
 
