@@ -1,7 +1,8 @@
 # olyom-isp-bench
 
 A browser-based bench that emulates the image-signal-processing (ISP) steps of Olympus / OM Digital
-cameras (PEN-F and close relatives). It lets you watch how each stage shapes the picture.
+cameras (PEN-F and close relatives). It lets you watch how each stage shapes the picture and study how
+far the sharpening / edge enhancement can be pushed within the hardware's constraints.
 
 ![The bench running on the built-in test scene](docs/screenshot.png)
 
@@ -31,8 +32,10 @@ does not pollute the output. With no image loaded the bench shows a built-in syn
 core against a synthetic request, so stages marked *Firmware* show the values a real PEN-F 3.1 `.BIN`
 produces. The firmware itself is proprietary and is **not** included — supply your own file.
 
-**Keyboard Shortcuts.** With a sub-parameter selected by clicking on heading or text field (a magenta highlight appears), the keys act
-on it: **←/→** decrease / increase the value by one step, **↑/↓** set it to maximum / minimum, **End** sets the middle value, and **Home** restores the default. These work whether the slider or its value box has focus; double-clicking a slider also resets it.
+**Keyboard.** With a sub-parameter selected (a magenta highlight appears), the arrow keys and two extras act
+on it: **←/→** decrease / increase the value by one step, **↑/↓** set it to maximum / minimum, **End** sets
+the middle value, and **Home** restores the default. These work whether the slider or its value box has
+focus; double-clicking a slider also resets it.
 
 **Reachability bullets.** Each sub-parameter has a coloured dot by its heading:
 - <img src="docs/dot-reachable.svg" width="11" height="11" alt="light blue"> **light blue** — firmware-reachable (a real camera menu setting or an ISP register the firmware writes).
@@ -98,6 +101,10 @@ includes a port of RawTherapee's AMaZE (GPL-3.0-or-later). The full text is in [
 The Apache-2.0 components — the builder call fixtures derived from `oly_fw_analysis` and anything taken from
 `caduceus-ep7` — are compatible with GPLv3 and retain their own Apache-2.0 licence and attribution; keep their
 `NOTICE` where their terms require it.
+
+> **Before publishing:** `vendor/om-emu` is bundled here but its upstream licence could not be confirmed
+> automatically. Check OM-EMU's licence and include its notice as required before distributing, or reference it
+> as an external dependency instead of vendoring it.
 
 Not affiliated with OM Digital Solutions or Olympus. "Olympus", "PEN" and film-simulation names are trademarks
 of their respective owners.
