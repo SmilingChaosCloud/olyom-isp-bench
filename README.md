@@ -20,7 +20,9 @@ Built on the research by:
 
 ## Using the bench
 
-Open `dist/index.html` in any modern browser — no server or build step is needed to run it.
+Save the raw `index.html` from the `dist` folder to your local device, open in any modern browser — no server or build step is needed to run it.
+
+Or access online at https://smilingchaoscloud.github.io/olyom-isp-bench/
 
 **Input image.** Load a **400×400 px `.PNG` crop of raw Bayer data**. You can produce one in RawTherapee or
 DarkTable with demosaicing turned off (mono). Make sure no sharpening was applied to that raw data, so it
